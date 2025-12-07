@@ -31,6 +31,8 @@ A backend API for managing vehicle rentals, handling:
 
 env:
 PORT=5000
+
 CONNECTION_STR=postgresql://username:password@localhost:5432/vehiclerentaldb?sslmode=disable
+
 JWT_SECRET="your_jwt_secret_here"
 ---
