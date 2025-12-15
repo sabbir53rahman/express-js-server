@@ -1,6 +1,6 @@
 Project Name: Vehicle Rental System
 
-Live URL:(https://server-with-experss-sabbir53rahman-sabbbirs-projects-d0de9788.vercel.app/)
+Live URL:(https://vehicle-rental-system-one-chi.vercel.app/)
 
 ---
 
@@ -27,7 +27,7 @@ A backend API for managing vehicle rentals, handling:
 3. Setup `.env` with DB and JWT configs  
 4. Run migrations (if any)  
 5. Start server: `npm run dev`  
-6. Access API at `https://server-with-experss-sabbir53rahman-sabbbirs-projects-d0de9788.vercel.app/api/v1/`  
+6. Access API at `https://vehicle-rental-system-one-chi.vercel.app/api/v1/`  
 
 env:
 PORT=5000
