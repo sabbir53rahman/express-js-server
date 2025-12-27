@@ -11,8 +11,7 @@ const loginUser = async (email: string, password: string) => {
     return null;
   }
   const user = result.rows[0];
-  console.log(`current user is  ${user}`)
-
+  console.log("current user is", user);
   const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
@@ -21,7 +20,7 @@ const loginUser = async (email: string, password: string) => {
 
   const secret = config.jwt_secret as string;
   const token = jwt.sign(
-    { name: user.name, email: user.email, role: user.role, id: user.userId },
+    { name: user.name, email: user.email, role: user.role, id: user.id },
     secret,
     { expiresIn: "7d" }
   );
@@ -33,7 +32,7 @@ const signupUser = async (
   name: string,
   email: string,
   password: string,
-  phone:string,
+  phone: string,
   role: string
 ) => {
   // user already exists
@@ -56,7 +55,12 @@ const signupUser = async (
   const newUser = result.rows[0];
 
   const token = jwt.sign(
-    { name: newUser.name, email: newUser.email, role: newUser.role, id:newUser.id },
+    {
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role,
+      id: newUser.id,
+    },
     config.jwt_secret as string,
     { expiresIn: "7d" }
   );
@@ -69,5 +73,5 @@ const signupUser = async (
 
 export const authServices = {
   loginUser,
-  signupUser
+  signupUser,
 };

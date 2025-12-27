@@ -1,35 +1,43 @@
-//higher order function always return a function
-
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import config from "../config";
 
-const auth = (...roles:string[]) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+const auth = (...roles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     try {
-      const token = req.headers.authorization;
-      if (!token) {
-        return res.status(500).json({
-          message: "You are not allowed",
+      const authHeader = req.headers.authorization;
+
+      if (!authHeader) {
+        return res.status(401).json({
+          message: "No token provided",
         });
       }
-      const decoded = jwt.verify(token, config.jwt_secret as string) as JwtPayload;
 
-      // console.log(decoded)
-      
-      req.user = decoded ;
+      const token = authHeader.split(" ")[1];
 
-      if(roles.length && !roles.includes(decoded.role as string)){
+      if (!token) {
         return res.status(401).json({
-          message: "Unauthorized!"
-        })
+          message: "Invalid token",
+        });
+      }
+
+      const decoded = jwt.verify(
+        token,
+        config.jwt_secret as string
+      ) as JwtPayload;
+
+      req.user = decoded;
+
+      if (roles.length && !roles.includes(decoded.role as string)) {
+        return res.status(403).json({
+          message: "You are now allowed",
+        });
       }
 
       next();
-    } catch (err: any) {
-      res.status(500).json({
-        success: false,
-        message: err.message,
+    } catch (err) {
+      return res.status(401).json({
+        message: "Invalid or expired token",
       });
     }
   };
