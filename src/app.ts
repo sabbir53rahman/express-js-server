@@ -17,7 +17,7 @@ app.use(express.urlencoded());
 initDB();
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello sabbir!");
+  res.send("Hello sabbirxcbhfcv!");
 });
 
 // users CRUD

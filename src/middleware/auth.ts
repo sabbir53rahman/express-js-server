@@ -30,7 +30,7 @@ const auth = (...roles: string[]) => {
 
       if (roles.length && !roles.includes(decoded.role as string)) {
         return res.status(403).json({
-          message: "You are now allowed",
+          message: "You are not allowed",
         });
       }
 
